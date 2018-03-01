@@ -9,10 +9,17 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
 
+    @objc func tapPlayButton() {
+        print("osareta")
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        let button:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.play, target: self, action: #selector(ViewController.tapPlayButton))
+        navigationItem.rightBarButtonItem = button
+        navigationItem.title = "LT Timer"
+        
     }
 
     override func didReceiveMemoryWarning() {
