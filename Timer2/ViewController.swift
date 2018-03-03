@@ -21,7 +21,7 @@ class ViewController: UIViewController {
     var lastCat:UIImage! = UIImage(named: "lastimg")
 
     //タイマー
-    var timer:Timer?
+    var timer:Timer!
     //タイマーが動いているかどうかのフラグ
     var isTimerRunning:Bool = false
     //タイマーのlimit
@@ -59,19 +59,29 @@ class ViewController: UIViewController {
         timeLabel.text = "\(min):" + String(format: "%02d", sec)
         //画像を小さくする処理
         //            self.imageView.transform = CGAffineTransform(scaleX: CGFloat(self.limit / 300), y: CGFloat(self.limit / 300))
+        
+        //0秒のときの処理
+        if limit == 0 {
+            timeLabel.text = "LT終了です！！"
+            displayImg(img: lastCat)
+            timer.invalidate()
+            isTimerRunning = false
+        }
     }
     
     //pauseボタンが押されたときの処理
     @IBAction func tapPauseButton(_ sender: Any) {
         timer!.invalidate()
+        isTimerRunning = false
     }
     
     //☓ボタンが押されたときの処理
     @IBAction func tapStopButton(_ sender: Any) {
-        timer!.invalidate()
+        timer.invalidate()
         timeLabel.text = "5:00"
         limit = 300
         displayImg(img: firstCat)
+        isTimerRunning = false
     }
     
     //画像のサイズを取得して、適正な縮尺で表示させる
