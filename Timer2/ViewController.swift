@@ -22,8 +22,10 @@ class ViewController: UIViewController {
 
     //タイマー
     var timer:Timer!
+    
     //タイマーが動いているかどうかのフラグ
     var isTimerRunning:Bool = false
+    
     //タイマーのlimit
     var limit:Int = 300
 
@@ -53,18 +55,22 @@ class ViewController: UIViewController {
     func runningTimer() {
         limit = limit - 1
         //時間部分
-        var min = limit / 60
-        var sec = limit % 60
+        let min = limit / 60
+        let sec = limit % 60
         //表記を更新
         timeLabel.text = "\(min):" + String(format: "%02d", sec)
         //画像を小さくする処理
-        //            self.imageView.transform = CGAffineTransform(scaleX: CGFloat(self.limit / 300), y: CGFloat(self.limit / 300))
+        let scale:CGFloat = CGFloat(limit + 1) / 300
+        imageView.transform = CGAffineTransform(scaleX: scale, y: scale)
+
+
+        //終わったら画像をおっきくする処理を書く
         
         //0秒のときの処理
         if limit == 0 {
+            timer.invalidate()
             timeLabel.text = "LT終了です！！"
             displayImg(img: lastCat)
-            timer.invalidate()
             isTimerRunning = false
         }
     }
